@@ -1,0 +1,45 @@
+string winner = 0;
+    for (int i = 0; i < candidate_count; i++)
+    {
+        for (int j = (i + 1); j < candidate_count; j++)
+        {
+            if (candidates[i].votes > candidates[j].votes)
+            {
+                winner = candidates[i].name;
+            }
+            else if (candidates[i].votes == candidates[j].votes)
+            {
+                printf("%s\n", candidates[i].name);
+            }
+        }
+        printf("%s\n", winner);
+    }
+    return;
+
+
+candidate[0].name: Alice
+candidate[0].votes: 3
+
+candidate[1].name: Bob
+candidate[1].votes: 0
+
+candidate[2].name: Jo
+candidate[2].name: 0
+
+for first loop
+for second loop
+candidate[0] against 1,2 (>=)
+	greater greater greater
+	win!
+
+alice: 1, bob 1, jo 1
+candidate[0] against 1,2
+	equal, equal, equal
+
+alice: 2, bob 1, jo 1, charles 0
+alice: 3, bob 1, jo 0, charles 0
+alice: 2, bob 2, jo 0, charles 0
+candidate[i] == candidate[j]
+
+alice: 2, bob 2, jo 2, charles 0, jack 0, jane 0
+alice: 2, bob 2, jo 1, charles 1, jack 0, jane 0

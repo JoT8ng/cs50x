@@ -1,0 +1,230 @@
+// Tideman Brief
+Tideman vs Runoff:
+Runoff looks if any candidate has a majority for first preference of votes. If none than candidates are runoff against each other by rank. Most preferred candidate wins.
+Tideman pairs candidates against each other and creates a "graph" showing relationships between candidates in terms of who has a strongest edge. Tries to avoid scenario where no condorcent winner. Condorcent winner always wins.
+
+Max candidates: 9
+
+preferences[MAX i][MAX j]: index is NUMBER OF VOTERS who prefer i over j
+
+locked[MAX i][MAX j]: i is locked in over j. Contains a boolean value. Represents the candidate graph/adjacency matrix
+
+pair pairs.winner: candidate index
+pair pairs.loser: candidate index
+Number of pair pairs: [MAX * (MAX - 1)/2 = pair_count]
+
+ranks[candidate_count]: stores the rank preference of a candidate for each voter
+candidates[candidate_count]: stores names of candidates as string
+
+pair_count
+candidate_count
+voter_count
+
+Election process:
+1. Tally: Once all of the voters have indicated all of their preferences, determine, for each pair of candidates, who the preferred candidate is and by what margin they are preferred.
+2. Sort: Sort the pairs of candidates in decreasing order of strength of victory, where strength of victory is defined to be the number of voters who prefer the preferred candidate.
+3. Lock: Starting with the strongest pair, go through the pairs of candidates in order and “lock in” each pair to the candidate graph, so long as locking in that pair does not create a cycle in the graph.
+4. Print/determine winner = condorcent winner/source of graph (no edges pointing towards it)
+
+Tally:
+Pairs:
+(Alice v Bob) (Alice v Charles) (Bob v Charles) (Charles v Alice)
+Alice win (7 margin)	Alice win (6 margin) 	Bob win	Charles win
+
+Sort:
+Sort pairs in order of strength
+(Alice v Bob) (Charles v Alice) (Alive v Charles)
+
+Lock: Could be boolean statement...
+
+
+// bool votes function DONE
+bool vote(int rank, string name, int ranks[])
+
+in main there is a for loop i < voter_count
+where ranks[i] is voter's ith preference
+int rank = ith preference
+
+for (int j = 0; j < candidate_count; j++)
+	if (strcmp(candidates[j], name) == 0)
+		ranks[rank] = j;
+		return true;
+return false;
+
+
+// Record Preferences Function DONE
+void record_preferences(int ranks[])
+
+*Note that after each new voter, ranks array refreshes after votes recorded in record_preferences
+
+in main there is a for loop i < voter_count
+where ranks[i] is voter's ith preference
+int rank = ith preference
+nested loop for j < candidate_count
+In that loop it calls to vote function and ranks[] is filled for each voter their candidate preferences
+end j loop
+In that loop it calls for record_preferences function where it takes data of ranks[] for that voter and fills in preferences array
+end i loop
+
+Candidates: [0]Bob, [1]Alice, [2]Charlie
+ranks[0]: Alice, ranks[1]: Bob, ranks[2]: Charlie
+preferences[1][0]: Alice over Bob
+preferences[0][2]: Bob over Charlie
+preferences[1][2]: Alice over Charlie
+ranks[0] > ranks[1]	ranks[first] > ranks[next]
+ranks[1] > ranks[2]	ranks[next] > ranks[next + 1]
+...
+ranks[0] > ranks[2]	ranks[first] > rank[last]
+ranks_count = candidate_count
+
+main loop for i = voter 0
+inside function
+for (int j = 0; j < candidate_count; j++)
+	for (int k = j + 1; k < candidate_count; k++)
+		preferences[ranks[j]][ranks[k]] += 1;
+
+
+// Add pairs DONE
+void add_pairs(void)
+
+Candidates: [0]Bob, [1]Alice, [2]Charlie
+2 voters/vote_count = 2
+
+voter 0:
+ranks[0]: Alice, ranks[1]: Bob, ranks[2]: Charlie
+preferences[1][0]: Alice over Bob
+preferences[0][2]: Bob over Charlie
+preferences[1][2]: Alice over Charlie
+
+voter 1:
+ranks[0]: Bob, ranks[1]: Alice, ranks[2]: Charlie
+preferences[0][1]: Bob over Alice
+preferences[1][2]: Alice over Charlie
+preferences[0][2]: Bob over Charlie
+
+pair pairs.winner: candidate index
+pair pairs.loser: candidate index
+Number of pair pairs: [MAX * (MAX - 1)/2 = pair_count]
+
+preferences[0][2]: 2 voters
+preferences[1][2]: 2 voters
+preferences[1][0]: 1 voter
+preferences[0][1]: 1 voter
+
+2 pairs
+pair pairs[0].winner: [0]Bob
+pair pairs[0].loser: [2]Charlie
+pair pairs[1].winner: [1]Alice
+pair pairs[1].loser: [2]Charlie
+
+int pair_count = candidate_count * (candidate_count - 1)/2;
+int max = (voter_count/2) + 1;
+
+for (j = 0; j < candidate_count; j++)
+	for (int k = j + 1; k < candidate_count; k++)
+		if (preferences[j][k] <= max && !(preferences[j][k] <= 1))
+			max = preferences[j][k];
+			for (int l = 0; l < pair_count; l++)
+				pairs[l].winner = j;
+				pairs[l].loser = k;
+
+
+// Sort pairs function
+void sort_pairs(void)
+
+preferences[0][2]: 2 voters
+preferences[1][2]: 2 voters
+preferences[1][0]: 1 voter
+preferences[0][1]: 1 voter
+
+pair pairs[0].winner: [0]Bob
+pair pairs[0].loser: [2]Charlie
+pair pairs[1].winner: [1]Alice
+pair pairs[1].loser: [2]Charlie
+pair pairs[2].winner: [0]Bob
+pair pairs[2].lower: [2]Charlie
+
+Sorted pair function:
+pair = [pairs[0], pairs[2], pairs[1]]
+
+// Strength is the number of votes stored in preferences according to pair combo minus itself
+strength = preferences[pairs[i].winner][pairs[i].loser] - preferences[pairs[i].loser][pairs[i].winner]
+
+// Create strength variable and temporary array
+int max_strength;
+int temp_winner[pair_count];
+int temp_loser[pair_count];
+
+for (int i = 0; i < pair_count; i++)
+	// Have to apply strength of victory to each pair
+	max_strength = preferences[pairs[i].winner][pairs[i].loser] - preferences[pairs[i].loser][pairs[i].winner];
+
+	for (int j = i + 1; j < pair_count; j++)
+		if (max_strength < preferences[pairs[j].winner][pairs[j].loser])
+			max_strength = preferences[pairs[j].winner][pairs[j].loser] - preferences[pairs[j].loser][pairs[j].winner];
+			// Sort re-shuffle pairs array
+			temp_winner[i] = pairs[j].winner;
+			temp_loser[i] = pairs[j].loser;
+
+			pairs[j].winner = pairs[i].winner;
+			pairs[j].loser = pairs[i].loser;
+
+			pairs[i].winner = temp_winner[i];
+			pairs[i].loser = temp_loser[i];
+
+		if (preferences[pairs[j].winner][pairs[j].loser] > preferences[pairs[j + 1].winner][pairs[j + 1].loser])
+			temp = preferences[pairs[j].winner][pairs[j].loser];
+			pairs[j] = pairs[j + 1];
+			pairs[j + 1] = temp;
+
+// Lock Pairs function
+void lock_pairs(void)
+
+pair pairs[0].winner: [0]Bob
+pair pairs[0].loser: [2]Charlie
+pair pairs[1].winner: [1]Alice
+pair pairs[1].loser: [2]Charlie
+pair pairs[2].winner: [0]Bob
+pair pairs[2].lower: [2]Charlie
+
+Sorted pair function:
+pair = [pairs[0], pairs[2], pairs[1]]
+
+Bob locked to Charlie: pairs[0].winner locked to pairs[0].loser
+Bob locked to Charlie: paires[2].winner locked to pairs[2].loser
+Alice locked to Charlie: d
+
+Condorcet winner: Bob, Alice
+
+The lock = relationship between pairs winner and loser
+Multiple lock = pairs.winner is same in multiple pairs
+
+Strongest is at end of pair array
+
+If pairs[i].loser is same as pairs[j].winner = closed loop/cycle
+
+Winner is pairs.winner with no pairs.loser pointing at it
+
+for (int i = 0; i < pair_count; i++)
+	locked[pairs[i].winner][pairs[i].loser] = true;
+
+	for (int j = i + 1; j < pair_count; j++)
+		if(pairs[j].loser = pairs[i].winner)
+			locked[pairs[j].winner][pairs[j].loser] = false;
+
+
+// Check for cycles and return true if cycle
+// Reverse pairs are a cycle
+
+for (int i = 0; i < pair_count; i++)
+	int winner = pairs[i].winner;
+	int loser = pairs[i].loser;
+
+	locked[loser][winner] = false;
+
+for (int j = 0; j < pair_count; j++)
+	if(locked[loser][j] == false && locked[loser][winner] == false)
+		locked[loser][winner] = false;
+
+for (int k = 0; k < pair_count; k++)
+	locked[winner][loser] = true;

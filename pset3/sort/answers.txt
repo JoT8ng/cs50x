@@ -1,0 +1,63 @@
+sort1 uses: Bubble sort
+
+How do you know?:
+Random 5000: slower than sort3
+Random 10000: slower than sort3
+Random 50000: slower than sort 3
+Reversed 5000: slower than sort 3
+Reversed 10000: approx the same
+Reversed 50000: slower than sort 3
+Sorted: faster, faster, faster
+random 5000 time:           reversed 5000 time:              sorted 5000 time:
+real 0m0.088s               real 0m0.097s                    real 0m0.042s
+user 0m0.068s               user 0m0.044s                    user 0m0.010s
+sys 0m0.004s                sys 0m0.027s                     sys 0m0.016s
+
+random 10000 time:          reversed 10000 time:             sorted 10000 time:
+real 0m0.286s               real 0m0.258s                    real 0m0.078s
+user 0m0.242s               user 0m0.196s                    user 0m0.006s
+sys 0m0.036s                sys 0m0.040s                     sys 0m0.039s
+
+random 50000 time:          reversed 50000 time:             sorted 50000 time:
+real 0m7.454s               real 0m5.970s                    real 0m0.560s
+user 0m6.810s               user 0m5.272s                    user 0m0.065s
+sys 0m0.187s                sys 0m0.190s                     sys 0m0.135s
+
+
+sort2 uses: Merge Sort
+
+How do you know?:
+Fastest algorithm processing time.
+random 5000 time:           reversed 5000 time:              sorted 5000 time:
+real 0m0.047s               real 0m0.066s                    real 0m0.021s
+user 0m0.007s               user 0m0.000s                    user 0m0.000s
+sys 0m0.016s                sys 0m0.020s                     sys 0m0.020s
+
+random 10000 time:          reversed 10000 time:             sorted 10000 time:
+real 0m0.084s               real 0m0.065s                    real 0m0.077s
+user 0m0.005s               user 0m0.000s                    user 0m0.008s
+sys 0m0.040s                sys 0m0.044s                     sys 0m0.036s
+
+random 50000 time:          reversed 50000 time:             sorted 50000 time:
+real 0m0.638s               real 0m5.508s                    real 0m0.890s
+user 0m6.058s               user 0m5.020s                    user 0m0.060s
+sys 0m0.155s                sys 0m0.188s                     sys 0m0.142s
+
+
+sort3 uses: Selection sort
+
+How do you know?:
+random 5000 time:           reversed 5000 time:              sorted 5000 time:
+real 0m0.058s               real 0m0.072s                    real 0m0.071s
+user 0m0.027s               user 0m0.027s                    user 0m0.022s
+sys 0m0.024s                sys 0m0.027s                     sys 0m0.029s
+
+random 10000 time:          reversed 10000 time:             sorted 10000 time:
+real 0m0.202s               real 0m0.260s                    real 0m0.173s
+user 0m0.117s               user 0m0.140s                    user 0m0.116s
+sys 0m0.046s                sys 0m0.044s                     sys 0m0.038s
+
+random 50000 time:          reversed 50000 time:             sorted 50000 time:
+real 0m3.673s               real 0m3.913s                    real 0m3.421s
+user 0m3.023s               user 0m3.172s                    user 0m2.850s
+sys 0m0.196s                sys 0m0.202s                     sys 0m0.210s
