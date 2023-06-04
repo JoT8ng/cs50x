@@ -1,0 +1,36 @@
+// Compute and return score for string
+Associate each char in the array of strings input by the users to the array of points
+    Ensure that both upper and lowercase of the char is associated with the same point
+Get the sum of that array of points
+Boolean statement if not a char associate with 0 points
+
+
+word1 = Dog
+
+word1[0] = D	=	POINTS[3] = 2
+word1[1] = o	=	POINTS[14] = 1
+word1[2] = g	=	POINTS[6] = 2
+
+sum1 = POINTS[3] + POINTS[14] + POINTS[6]
+sum1 = 2 + 1 + 2 = 5
+
+ASCII a-z = 97-122
+	-32 = lowercase to uppercase
+	97 = 0
+	98 = 1
+	99 = 2
+
+// Return score word 1
+array_number = 0;
+int sum1 = 0;
+for (int i = 0, n = strlen(word1); i < n; i++)
+	if(isupper(word1[i]))
+		tolower(word1[i]);
+	else
+		word1[i] = 0;
+	array_number = word1[i] - 97
+	word1[i] = POINTS[array_number]
+	sum1 = sum1 + word1[i];
+
+// Return score word 2
+Repeat process word 1
