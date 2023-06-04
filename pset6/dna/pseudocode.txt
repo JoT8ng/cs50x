@@ -1,0 +1,25 @@
+database: [
+	{'name': 'Alice', 'AGATC': 2, 'AATG': 8, 'TATC': 3}
+	{'name': 'Bob', 'AGATC': 4, 'AATG': 1, 'TATC': 5}
+]
+
+
+Count: [
+	{'AGATC': 4}
+	{'AATG': 1}
+	{'TATC': 5}
+]
+
+Subsequences: ['AGATC', 'AATG', 'TATC']
+
+
+# Check database for matching profiles
+for name in database:
+	match = 0
+	for subsequence in subsequences:
+		if int(database[subsequence]) == count[subsequence]:
+			match += 1
+	if match == len(subsequences)
+		print(database['name'])
+		return
+print('No match')
