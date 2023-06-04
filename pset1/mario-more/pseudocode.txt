@@ -1,0 +1,25 @@
+Each pyramid is a different nest loop that executes one after the other in order of the code
+As \n is not printed they visualise next to each other
+
+nested loop one:
+...
+..
+.
+
+nested loop two:
+#
+##
+###
+####
+
+nested loop three:
+..
+..
+..
+..
+
+nested loop four:
+#
+##
+###
+####

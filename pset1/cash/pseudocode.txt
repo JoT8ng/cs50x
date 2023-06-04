@@ -1,0 +1,25 @@
+Loop prompt
+Loop get int nickel
+if then statement
+result = sum of coins results
+print result
+
+
+
+
+
+cents = 40
+
+int quarters = 25 INNAPROPRIATE LOOP
+for (n = 0; cents > 1; n++)
+	q = cents - quarters
+
+int n = 0
+int quarters = 25
+while (cents > 1)
+	cents = cents - quarters
+	n++
+
+n = 0, cents = 40, cents - quarters = cents 40-25 = 15, repeat loop
+n = 1, cents = 15, 15-25 = -10, stop loop
+n++;

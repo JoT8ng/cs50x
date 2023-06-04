@@ -1,0 +1,23 @@
+// Prompt user input for a number
+Boolean statement: Run if then statement whether or not it is a valid card number
+If not valid then print "INVALID"
+
+// Run Luhn Algorithm
+Boolean statement: If valid or not valid
+If not valid then print "INVALID"
+
+// Determine what type of card it is
+Boolean statement: If the card is valid then determine if it is "AMEX", "MASTERCARD", "VISA"
+Print the type of card
+
+
+modulo = i % 100 / 10;      modulo = 1234 % 100, 34/10 = 3
+modulo = modulo * 2;        3*2 = 6
+modulo = modulo % 10;       6 % 10 = 6
+sum = sum + modulo;         sum = 0 + 6
+i = i / 100;
+
+// Get first two numbers of card
+number of decimal places is total digits - 2
+number of decimal places represented by 10 * 10 loop to number of decimal places
+card number divided by number of decimal places
