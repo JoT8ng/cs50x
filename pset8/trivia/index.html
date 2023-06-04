@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+
+            // Code to check answers to questions
+            document.addEventListener('DOMContentLoaded', function() {
+
+                // Code for question 1
+                // Change incorrect buttons to red if clicked
+                let incorrect = document.querySelectorAll(".incorrect");
+                for (let i = 0; i < incorrect.length; i++ ){
+                    incorrect[i].addEventListener('click', function() {
+                        incorrect[i].style.backgroundColor = 'red';
+                        document.querySelector("#feedback1").innerHTML = 'Incorrect';
+                    });
+                }
+                // Change correct button to green if clicked
+                let correct = document.querySelector(".correct");
+                correct.addEventListener('click', function() {
+                    correct.style.backgroundColor = 'green';
+                    document.querySelector("#feedback1").innerHTML = 'Correct!';
+                });
+
+                // Code for question 2
+                document.querySelector('#submit').addEventListener('click', function() {
+                    let input = document.querySelector('input');
+                    if (input.value.toLowerCase() === 'katharine hepburn') {
+                        input.style.backgroundColor = 'green';
+                        document.querySelector("#feedback2").innerHTML = 'Correct!';
+                    } else {
+                        input.style.backgroundColor = 'red';
+                        document.querySelector("#feedback2").innerHTML = 'Incorrect';
+                    }
+                });
+
+            });
+
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+
+                <hr>
+
+                <h3>What dog breed has the closest DNA to a wolf? </h3>
+                <!-- Multiple choice question 1 -->
+                <button class="incorrect">Saluki</button>
+                <button class="incorrect">Alaskan Malamute</button>
+                <button class="incorrect">Siberian Husky</button>
+                <button class="correct">Shih Tzu</button>
+                <button class="incorrect">Pekingese</button>
+                <button class="incorrect">Tibetan Terrier</button>
+                <button class="incorrect">Akita</button>
+
+                <p id="feedback1"></p>
+
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+
+                <hr>
+
+                <h3>Which actor/actress has the most Oscar wins? (answer name format: First Last) </h3>
+                <!-- Free response question -->
+                <input type="text"></input>
+                <button id="submit">Submit!</button>
+
+                <p id="feedback2"></p>
+
+            </div>
+        </div>
+    </body>
+</html>
